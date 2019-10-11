@@ -36,7 +36,7 @@ const GUILD_DATA_QUERY = gql`
 `;
 
 const GUILD_DATA_MUTATION = gql`
-  mutation updateCoreSettings($newSettings: Map_String_ObjectScalar!, $id: Long!) {
+  mutation guildDataMutation($newSettings: Map_String_ObjectScalar!, $id: Long!, $tags: Map_String_TagScalar, $removedTags: [String]) {
     updateCoreSettings(newSettings: $newSettings, guildId: $id) {
       deleteCommand,
       showPermErrors,
@@ -48,7 +48,9 @@ const GUILD_DATA_MUTATION = gql`
       useEmbedForMessages,
       showModuleErrors,
       tags,
-    }
+    },
+    removeTags(guildId: $id, tags: $removedTags),
+    updateTags(guildId: $id, tags: $tags)
   }
 `;
 
@@ -76,15 +78,21 @@ export default {
     commit('clearNonChanges');
     commit('setLoading', false);
   },
-  async saveGuildData({ commit }, { guildId, changes }) {
+  async saveGuildData({ commit, getters }, { guildId, changes }) {
     const response = await apollo.mutate({
       mutation: GUILD_DATA_MUTATION,
       variables: {
         newSettings: changes,
         id: guildId,
+        tags: getters['Mchanges/updatedTags'],
+        removedTags: getters['Mchanges/removedTagNames'],
       },
     });
     commit('setGuildData', {
+      coreSettings: response.data.updateCoreSettings,
+    });
+
+    commit('Mchanges/hydrateState', {
       coreSettings: response.data.updateCoreSettings,
     });
     commit('clearChanges');

@@ -18,7 +18,11 @@ export default {
   ...settings,
   ...getters,
   hasChanges(state) {
-    return state.changes.length !== 0;
+    return (
+      state.changes.length !== 0
+      || state.Mchanges.tags.filter(t => t.changed).length !== 0
+      || state.Mchanges.tags.filter(t => t.removed).length !== 0
+    );
   },
   getSelectedGuild(state) {
     return state.guilds.find(val => val.guildId === state.selectedGuildId);

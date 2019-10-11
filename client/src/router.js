@@ -5,6 +5,8 @@ import ServerList from './views/ServerList.vue';
 
 import General from './views/server/General.vue';
 import Modlog from './views/server/Modlog.vue';
+import Tags from './views/server/Tags.vue';
+
 
 Vue.use(Router);
 
@@ -38,6 +40,13 @@ export default new Router({
           components: {
             default: ServerComponent,
             settings: General,
+          },
+        },
+        {
+          path: 'tags',
+          components: {
+            default: ServerComponent,
+            settings: Tags,
           },
         },
       ],

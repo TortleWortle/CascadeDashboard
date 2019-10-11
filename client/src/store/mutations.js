@@ -38,5 +38,6 @@ export default {
   },
   clearChanges(state) {
     state.changes = [];
+    this.commit('Mchanges/clearChanges');
   },
 };
