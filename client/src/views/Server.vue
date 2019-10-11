@@ -44,13 +44,14 @@ export default {
   beforeRouteEnter(to, from, next) {
     store.commit('selectedGuild', to.params.id);
     store.dispatch('getGuildData', to.params.id).then(() => {
-      store.commit('Mchanges/hydrateState', store.getters.getSelectedGuild);
       next();
     });
   },
   created() {
     this.$store.commit('selectedGuild', this.$route.params.id);
-    this.$store.dispatch('getGuildData', this.$store.getters.selectedGuildId);
+    this.$store.dispatch('getGuildData', this.$store.getters.selectedGuildId).then(() => {
+      store.commit('Mchanges/hydrateState', store.getters.getSelectedGuild);
+    });
     window.addEventListener('beforeunload', this.stopUnsavedUnload);
   },
   beforeDestroy() {
