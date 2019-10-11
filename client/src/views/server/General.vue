@@ -30,6 +30,12 @@
         <ui-toggle label="Show permission errors"
           saveGet="guildShowPermErrors"
           saveSet="setGuildShowPermErrors" />
+        <ui-toggle label="Help shows all Modules"
+          saveGet="guildHelpShowAllModules"
+          saveSet="setGuildHelpShowAllModules" />
+        <ui-toggle label="Help hides forbidden commands"
+          saveGet="guildHelpHideCommandsNoPermission"
+          saveSet="setGuildHelpHideCommandsNoPermission" />
         <ui-toggle label="Show module errors"
           saveGet="guildShowModuleErrors"
           saveSet="setGuildShowModuleErrors" />
