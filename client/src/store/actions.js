@@ -38,7 +38,7 @@ const GUILD_DATA_QUERY = gql`
 `;
 
 const GUILD_DATA_MUTATION = gql`
-  mutation guildDataMutation($newSettings: Map_String_ObjectScalar!, $id: Long!, $tags: Map_String_TagScalar, $removedTags: [String]) {
+  mutation guildDataMutation($newSettings: Map_String_ObjectScalar!, $id: Long!, $tags: Map_String_TagScalar!, $removedTags: [String]!) {
     updateCoreSettings(newSettings: $newSettings, guildId: $id) {
       deleteCommand,
       showPermErrors,
